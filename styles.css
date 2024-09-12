@@ -1,0 +1,209 @@
+/* إعدادات عامة للصفحة */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background-color: #f5deb3; /* لون جلد ناعم أصفر */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* ارتفاع الشاشة بالكامل */
+}
+
+/* تنسيق النماذج */
+#authContainer, #gameContainer {
+    text-align: center;
+}
+
+/* تنسيق نماذج تسجيل الدخول وإنشاء الحساب */
+#loginForm, #signupForm {
+    margin: 20px;
+}
+
+#loginForm input, #signupForm input {
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    outline: none;
+}
+
+#loginForm input:focus, #signupForm input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#loginForm button, #signupForm button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#loginForm button:hover, #signupForm button:hover {
+    background-color: #0056b3;
+}
+
+/* تنسيق الرسائل الخطأ */
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* تنسيق حقل إدخال اسم المستخدم */
+#username {
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    outline: none;
+}
+
+#username:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* تنسيق منطقة النقر */
+#clickArea {
+    width: 300px;
+    height: 300px;
+    background-color: #007bff;
+    margin: 20px auto;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#clickArea:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+#clickArea:active {
+    background-color: #003d7a;
+}
+
+/* تنسيق لوحة المتصدرين */
+#leaderboard {
+    margin-top: 30px;
+}
+
+#leaderboard h2 {
+    color: #007bff;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#leaderboard ol {
+    list-style: none;
+    padding: 0;
+}
+
+#leaderboard li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 5px auto;
+    padding: 10px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* تنسيق المراكز الذهبية والفضية والبرونزية */
+#leaderboard li.gold {
+    background-color: gold;
+}
+
+#leaderboard li.silver {
+    background-color: silver;
+}
+
+#leaderboard li.bronze {
+    background-color: #cd7f32;
+}
+
+/* تنسيق الرسائل التحذيرية */
+.warning {
+    color: red;
+    font-size: 16px;
+    margin: 10px 0;
+    display: none; /* إخفاء الرسائل التحذيرية بشكل افتراضي */
+}
+
+/* تنسيق زر تسجيل الخروج */
+#logoutButton {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 20px;
+}
+
+#logoutButton:hover {
+    background-color: #c82333;
+}
+
+/* تنسيق النص الخاص بإنشاء الحساب */
+#createAccountText {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+#createAccountButton {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#createAccountButton:hover {
+    color: #0056b3;
+}
+
+/* تنسيق زر العودة لتسجيل الدخول */
+#backToLogin {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#backToLogin:hover {
+    background-color: #0056b3;
+}
+
+/* تنسيق لعرض التصميم على الشاشات الصغيرة */
+@media (max-width: 600px) {
+    #clickArea {
+        width: 90%;
+        height: 200px;
+    }
+
+    #leaderboard li {
+        width: 90%;
+    }
+}

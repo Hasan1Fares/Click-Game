@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1 id="title">🔥كبس حتى الموت🔥</h1>
+    
+    <!-- نموذج تسجيل الدخول -->
+    <div id="loginForm">
+        <input type="text" id="loginEmail" placeholder="البريد الإلكتروني">
+        <input type="password" id="loginPassword" placeholder="كلمة المرور">
+        <button id="loginButton">تسجيل الدخول</button>
+        <p id="loginError" class="error-message"></p>
+        <a href="#" id="createAccountButton">إنشاء حساب</a>
+    </div>
+    
+    <!-- نموذج إنشاء الحساب -->
+    <div id="signupForm" style="display: none;">
+        <input type="text" id="signupName" placeholder="اسمك">
+        <input type="text" id="signupEmail" placeholder="البريد الإلكتروني">
+        <input type="password" id="signupPassword" placeholder="كلمة المرور">
+        <button id="signupButton">إنشاء حساب</button>
+        <p id="signupError" class="error-message"></p>
+        <a href="#" id="backToLogin">العودة لتسجيل الدخول</a>
+    </div>
+    
+    <!-- نموذج اللعبة -->
+    <div id="gameContainer" style="display: none;">
+        <div id="clickArea">انقر هنا</div>
+        <div id="leaderboard"></div>
+        <div id="userDisplay"></div>
+        <button id="logoutButton">تسجيل الخروج</button>
+    </div>
+</body>
+</html>
