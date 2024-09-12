@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var signupPassword = document.getElementById('signupPassword');
     var clickArea = document.getElementById('clickArea');
     var userDisplay = document.getElementById('userDisplay');
+    var clickSound = document.getElementById('clickSound'); // عنصر الصوت
 
     // دالة لتبديل النماذج
     function toggleForms() {
@@ -138,6 +139,10 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("يرجى تسجيل الدخول أولاً!");
             return;
         }
+
+        // إعادة تعيين موضع التشغيل للصوت إلى الصفر وتشغيله من البداية
+        clickSound.currentTime = 0;
+        clickSound.play();
 
         var userRef = database.ref('users/' + username);
         userRef.transaction(function(currentValue) {
