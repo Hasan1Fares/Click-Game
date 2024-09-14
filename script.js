@@ -31,6 +31,13 @@ document.addEventListener('DOMContentLoaded', function() {
         signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
     }
 
+    // دالة للتحقق من وجود إيموجي في النص
+    function containsEmoji(text) {
+        // تعبير عادي للتحقق من وجود إيموجي في النص
+        const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u;
+        return emojiRegex.test(text);
+    }
+
     // أحداث التبديل بين النماذج
     createAccountButton.addEventListener('click', function() {
         toggleForms();
@@ -39,6 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
     backToLoginButton.addEventListener('click', function() {
         toggleForms();
     });
+    
+    
 
     // دالة للتحقق من وجود اسم مستخدم مشابه
     function checkUsernameExists(username) {
@@ -86,6 +95,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!name || !email || !password) {
             document.getElementById('signupError').textContent = "يرجى إدخال الاسم والبريد الإلكتروني وكلمة المرور!";
+            return;
+        }
+
+        if (containsEmoji(name)) {
+            document.getElementById('signupError').textContent = "اسم المستخدم لا يمكن أن يحتوي على إيموجي!";
+            document.getElementById('signupError').style.color = "red"; // تغيير لون الرسالة إلى الأحمر
             return;
         }
 
