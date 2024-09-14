@@ -38,6 +38,18 @@ document.addEventListener('DOMContentLoaded', function() {
         return emojiRegex.test(text);
     }
 
+    // دالة للتحقق من وجود اسم مستخدم مشابه
+    function checkUsernameExists(username) {
+        return database.ref('users/' + username).once('value').then(function(snapshot) {
+            return snapshot.exists();
+        });
+    }
+
+    // التحقق من أن البريد الإلكتروني ينتهي بـ @gmail.com
+    function isGmail(email) {
+        return email.endsWith('@gmail.com');
+    }
+
     // أحداث التبديل بين النماذج
     createAccountButton.addEventListener('click', function() {
         toggleForms();
@@ -46,15 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
     backToLoginButton.addEventListener('click', function() {
         toggleForms();
     });
-    
-    
-
-    // دالة للتحقق من وجود اسم مستخدم مشابه
-    function checkUsernameExists(username) {
-        return database.ref('users/' + username).once('value').then(function(snapshot) {
-            return snapshot.exists();
-        });
-    }
 
     // تسجيل الدخول
     document.getElementById('loginButton').addEventListener('click', function() {
@@ -95,6 +98,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!name || !email || !password) {
             document.getElementById('signupError').textContent = "يرجى إدخال الاسم والبريد الإلكتروني وكلمة المرور!";
+            return;
+        }
+
+        if (!isGmail(email)) {
+            document.getElementById('signupError').textContent = "يرجى إدخال بريد إلكتروني ينتهي بـ @gmail.com";
+            document.getElementById('signupError').style.color = "red"; // تغيير لون الرسالة إلى الأحمر
             return;
         }
 
