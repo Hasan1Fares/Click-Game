@@ -23,6 +23,7 @@
         <a href="#" id="createAccountButton">إنشاء حساب</a>
     </div>
     
+    
     <!-- نموذج إنشاء الحساب -->
     <div id="signupForm" style="display: none;">
         <input type="text" id="signupName" placeholder="اسمك">
@@ -33,12 +34,17 @@
         <a href="#" id="backToLogin">العودة لتسجيل الدخول</a>
     </div>
     
+    
     <!-- نموذج اللعبة -->
     <div id="gameContainer" style="display: none;">
         <div id="clickArea">انقر هنا</div>
         <div id="leaderboard"></div>
         <div id="userDisplay"></div>
-
+        
+        <div id="onlineUsersCount" style="position: absolute; top: 10px; left: 10px; background: rgba(0, 0, 0, 0.5); color: white; padding: 5px 10px; border-radius: 5px;">
+            المتصلين الآن: 0
+        </div>
+        
         <!-- عنصر الصوت -->
         <audio id="clickSound" src="pop.mp3" preload="auto"></audio>
     
