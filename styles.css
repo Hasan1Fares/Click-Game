@@ -146,6 +146,17 @@ body {
     display: none; /* إخفاء الرسائل التحذيرية بشكل افتراضي */
 }
 
+#onlineUsersCount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
 /* تنسيق زر تسجيل الخروج */
 #logoutButton {
     padding: 10px 20px;
