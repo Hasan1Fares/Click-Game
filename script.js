@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var clickArea = document.getElementById('clickArea');
     var userDisplay = document.getElementById('userDisplay');
     var clickSound = document.getElementById('clickSound'); // عنصر الصوت
+    var onlineUsersCount = document.getElementById('onlineUsersCount'); // عنصر عدد المتصلين
 
     // دالة لتبديل النماذج
     function toggleForms() {
@@ -48,6 +49,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // التحقق من أن البريد الإلكتروني ينتهي بـ @gmail.com
     function isGmail(email) {
         return email.endsWith('@gmail.com');
+    }
+
+    // إضافة @gmail.com تلقائيًا إذا لم يكن موجودًا
+    function normalizeEmail(email) {
+        if (!isGmail(email)) {
+            return email + '@gmail.com';
+        }
+        return email;
     }
 
     // أحداث التبديل بين النماذج
@@ -83,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('gameContainer').style.display = 'block';
                     loginForm.style.display = 'none';
                     updateLeaderboard();
+                    updateOnlineUsersCount(); // تحديث عدد المتصلين
                 });
             })
             .catch(function(error) {
@@ -100,6 +110,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('signupError').textContent = "يرجى إدخال الاسم والبريد الإلكتروني وكلمة المرور!";
             return;
         }
+
+        email = normalizeEmail(email); // إضافة @gmail.com تلقائيًا
 
         if (!isGmail(email)) {
             document.getElementById('signupError').textContent = "يرجى إدخال بريد إلكتروني ينتهي بـ @gmail.com";
@@ -138,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('gameContainer').style.display = 'block';
                     signupForm.style.display = 'none';
                     updateLeaderboard();
+                    updateOnlineUsersCount(); // تحديث عدد المتصلين
                 })
                 .catch(function(error) {
                     document.getElementById('signupError').textContent = error.message;
@@ -147,6 +160,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // تسجيل الخروج
     document.getElementById('logoutButton').addEventListener('click', function() {
+        var username = localStorage.getItem('username');
+        if (username) {
+            // تحديث حالة الاتصال للمستخدم
+            database.ref('onlineUsers/' + username).remove();
+        }
         firebase.auth().signOut().then(function() {
             localStorage.removeItem('username');
             document.getElementById('gameContainer').style.display = 'none';
@@ -196,18 +214,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // عرض النماذج بناءً على حالة تسجيل الدخول
+    function updateOnlineUsersCount() {
+        var onlineUsersRef = database.ref('onlineUsers');
+        onlineUsersRef.on('value', function(snapshot) {
+            var onlineUsers = snapshot.val();
+            var count = onlineUsers ? Object.keys(onlineUsers).length : 0;
+            onlineUsersCount.textContent = `المتصلين الآن: ${count}`;
+        });
+    }
+
+    // متابعة حالة الاتصال للمستخدمين الحاليين
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
+            var email = user.email;
             var username = localStorage.getItem('username');
             if (username) {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('gameContainer').style.display = 'block';
-                updateLeaderboard();
+                // تحديث حالة الاتصال للمستخدم
+                database.ref('onlineUsers/' + username).set(true);
+                updateOnlineUsersCount(); // تحديث عدد المتصلين
             }
-        } else {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('gameContainer').style.display = 'none';
         }
     });
+
+    // عند إغلاق الصفحة، قم بإزالة حالة الاتصال للمستخدم
+    window.addEventListener('beforeunload', function() {
+        var username = localStorage.getItem('username');
+        if (username) {
+            database.ref('onlineUsers/' + username).remove();
+        }
+    });
+
+    // عرض النماذج بشكل افتراضي
+    loginForm.style.display = 'block';
+    signupForm.style.display = 'none';
 });
